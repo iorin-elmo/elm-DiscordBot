@@ -8,15 +8,12 @@ client.on('ready', function (){
   app.ports.ready();
 });
 
-
-var channel;
 client.on('message', async msg => {
-  channel = msg.channel;
-  app.ports.message(msg.content);
+  app.ports.message(msg.channel, msg.content);
 });
 
-app.ports.send.subscribe( function (str) {
-  channel.send(str);
+app.ports.send.subscribe( function (ch, str) {
+  ch.send(str);
 });
 
 app.ports.print.subscribe( function (str) {
