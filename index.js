@@ -23,4 +23,4 @@ app.ports.print.subscribe( function (str) {
   console.log(str);
 });
 
-client.login('NzQxNDY1MTgxNzIwNDEyMjUw.Xy39Qw.sZbvlReYGEKyJ_gSERwYoowKy1o')
+client.login('')
