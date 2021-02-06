@@ -8,7 +8,7 @@ init _ =
 
 type Msg
   = Ready ()
-  | Message String
+  | Message Int String
 
 update : Msg -> () -> ( (), Cmd Msg )
 update msg model =
@@ -16,12 +16,12 @@ update msg model =
     Ready _ ->
       ((), print "Logged in")
 
-    Message str ->
+    Message chId str ->
       if String.startsWith "!" str
       then
         case String.dropLeft 1 str of
-          "neko" -> ((), send "にゃーん")
-          _ -> ((), send "ねこじゃないなにか")
+          "neko" -> ((), send chId "にゃーん")
+          _ -> ((), send chId "ねこじゃないなにか")
       else
         ((), Cmd.none)
 
@@ -42,6 +42,6 @@ main =
     }
 
 port ready : (() -> msg) -> Sub msg
-port message : (String -> msg) -> Sub msg
-port send : String -> Cmd msg
+port message : (Int -> String -> msg) -> Sub msg
+port send : Int -> String -> Cmd msg
 port print : String -> Cmd msg
